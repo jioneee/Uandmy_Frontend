@@ -57,7 +57,7 @@ const CreateStudyPage = () => {
   return (
     <div>
       <NavHeader title="스터디 만들기" />
-      <div className="max-w-2xl mx-auto py-4">
+      <div className="max-w-2xl mx-auto">
         {isLoading ? (
           <LoadingSpinner message="모집글 발행중..." />
         ) : (
@@ -252,7 +252,7 @@ const CreateStudyPage = () => {
                 </div>
               )}
             />
-            <div className="flex gap-3 sticky  left-1/2 w-full max-w-2xl bg-white backdrop-blur-sm p-4 border-t border-[#CCCEF0]">
+            <div className="flex gap-3 sticky bottom-0 left-1/2 w-full max-w-2xl bg-white backdrop-blur-sm p-4 border-t border-[#CCCEF0]">
               <Button
                 label="이전"
                 bgColor="bg-white"
