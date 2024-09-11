@@ -252,7 +252,7 @@ const CreateStudyPage = () => {
                 </div>
               )}
             />
-            <div className="flex gap-3 sticky bottom-[62px] left-1/2 w-full max-w-2xl bg-white/10 backdrop-blur-sm p-4 border-t border-[#CCCEF0]">
+            <div className="flex gap-3 sticky  left-1/2 w-full max-w-2xl bg-white backdrop-blur-sm p-4 border-t border-[#CCCEF0]">
               <Button
                 label="이전"
                 bgColor="bg-white"
