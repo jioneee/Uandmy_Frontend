@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 import Button from '@/components/common/Button';
-import Input from '@/components/common/Input';
+import { Input } from '@/components/common/Input';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -40,8 +40,8 @@ const Login = () => {
 
   return (
     <>
-      <div className="flex justify-center items-center flex-col space-y-2">
-        <div className="flex items-start flex-col w-[21.438rem] ">
+      <div className="w-full mt-20 flex justify-center items-center flex-col space-y-4">
+        <div className="flex -ml-20 items-start flex-col  ">
           <Image
             src="/images/Waving_hand.svg"
             alt="Waving Hand"
@@ -81,7 +81,7 @@ const Login = () => {
               <span className="text-primary">{errors.password}</span>
             )}
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center my-[2rem]">
             <Button
               label="로그인"
               type="submit"
