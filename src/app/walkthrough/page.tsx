@@ -3,6 +3,7 @@
 import 'swiper/css';
 import 'swiper/css/pagination';
 
+import Link from 'next/link';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -13,7 +14,9 @@ const Page = () => {
     <>
       <div className="h-screen flex flex-col gap-[1.4375rem] items-center pt-[2.5rem] px-4 onboarding-bg">
         <div className="flex justify-end w-full py-[0.625rem] text-[#82829B] text-[0.875rem]">
-          <button>SKIP</button>
+          <Link href="onboarding">
+            <button>SKIP</button>
+          </Link>
         </div>
         {/* 슬라이드 */}
         <div className="w-full max-w-md">
