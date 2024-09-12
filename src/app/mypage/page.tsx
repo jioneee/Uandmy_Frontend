@@ -44,10 +44,12 @@ const Page = () => {
   return (
     <div>
       <div className="min-h-screen ">
-        <div className="w-full px-[.9375rem] pt-11 pb-20">
-          <CommonHeader title="마이페이지" />
+        <div className="w-full pt-11 pb-20">
+          <div className="px-[.9375rem]">
+            <CommonHeader title="마이페이지" />
+          </div>
           <div className="flex flex-col gap-5">
-            <div className="flex flex-row gap-5">
+            <div className="flex flex-row gap-5 px-[.9375rem]">
               <button>
                 <ImageUploader
                   onImageUpload={handleProfileUpload}
@@ -74,27 +76,29 @@ const Page = () => {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row justify-between p-5 w-full h-auto border-2 border-[#EEEAFF] bg-[#F9F9F9] rounded-md ">
-              <div className="flex gap-5">
-                <span className="text-[#7F6CAF] ">피그마 팔로업 회의</span>
-                <span className="text-[#E0D8FF]">|</span>
-              </div>
+            <div className="px-[.9375rem]">
+              <div className="flex flex-row justify-between p-5 w-full h-auto border-2 border-[#EEEAFF] bg-[#F9F9F9] rounded-md">
+                <div className="flex gap-5">
+                  <span className="text-[#7F6CAF] ">피그마 팔로업 회의</span>
+                  <span className="text-[#E0D8FF]">|</span>
+                </div>
 
-              <span className="flex flex-row">
-                <img src={'images/Alarm.svg'} alt="알람" />
-                <span className="text-[#645294] ml-2">오늘 오후 8:30</span>
-              </span>
+                <span className="flex flex-row">
+                  <img src={'images/Alarm.svg'} alt="알람" />
+                  <span className="text-[#645294] ml-2">오늘 오후 8:30</span>
+                </span>
+              </div>
             </div>
-            <div>
+            <div className="px-[.9375rem]">
               <p className="font-medium text-lg mb-3">내 정보</p>
               <UserStatusSummary boxDatas={boxDatas} />
             </div>
 
             <div className="w-full h-[0.5rem] box-border bg-[#F1F2F6] mt-5 mb-5"></div>
-            <div className="flex flex-col gap-3">
-              <div className="font-medium">
-                <div className=" text-lg mb-2">내 스터디</div>
 
+            <div className="flex flex-col">
+              <div className="flex flex-col gap-[1.25rem] font-medium px-[.9375rem]">
+                <div className=" text-lg mb-2">내 스터디</div>
                 <div className="flex justify-between">
                   <div className="flex flex-row gap-2">
                     <img src={'/images/Joining.svg'} alt={'참여 중인 스터디'} />
@@ -103,7 +107,6 @@ const Page = () => {
                       2
                     </span>
                   </div>
-
                   <img
                     src={'/images/Navigate.svg'}
                     alt={'참여 중인 스터디 이동'}
@@ -114,20 +117,15 @@ const Page = () => {
                     <img src={'/images/Before.svg'} alt={'지난 스터디'} />
                     지난 스터디 <span>8</span>
                   </div>
-
                   <img src={'/images/Navigate.svg'} alt={'지난 스터디 이동'} />
                 </div>
-              </div>
-
-              <hr className="w-[95%] mx-auto border-t-1 border-[#EEEAFF]" />
-              <div className="font-medium">
+                <hr className="w-full mx-auto border-t-1 border-[#EEEAFF]" />
                 <div className=" text-lg mb-2">관심 보인 스터디</div>
                 <div className="flex justify-between">
                   <div className="flex flex-row gap-2">
                     <img src={'/images/Checking.svg'} alt={'최근 방문'} />
                     최근 방문
                   </div>
-
                   <img src={'/images/Navigate.svg'} alt={'최근 방문 이동'} />
                 </div>
                 <div className="flex justify-between">
@@ -135,19 +133,18 @@ const Page = () => {
                     <img src={'/images/Bookmark2.svg'} alt={'관심 스터디'} />
                     관심 스터디<span>8</span>
                   </div>
-
                   <img src={'/images/Navigate.svg'} alt={'관심 스터디 이동'} />
                 </div>
               </div>
+
               <div className="w-full h-[0.5rem] box-border bg-[#F1F2F6] mt-5 mb-5"></div>
-              <div className="font-medium">
+
+              <div className="flex flex-col gap-[1.25rem] font-medium px-[.9375rem]">
                 <div className="text-lg mb-2">고객 센터</div>
                 <div>FAQ</div>
                 <div>문의하기</div>
                 <div>공지사항</div>
-              </div>
-              <hr className="w-[95%] mx-auto border-t-1 border-[#EEEAFF]" />
-              <div className="font-medium">
+                <hr className="w-[95%] mx-auto border-t-1 border-[#EEEAFF]" />
                 <div className=" text-lg mb-2">계정 정보</div>
                 <div>회원 정보 수정</div>
                 <div>비밀번호 설정</div>
@@ -155,7 +152,6 @@ const Page = () => {
                   <div>마케팅 개인정보 제3자 제공동의</div>
                   <ToggleSwitch />
                 </div>
-
                 <div>회원 탈퇴</div>
               </div>
             </div>
