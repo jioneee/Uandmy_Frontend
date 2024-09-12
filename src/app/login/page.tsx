@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <>
       <div className="w-full mt-20 flex justify-center items-center flex-col space-y-4">
-        <div className="flex -ml-20 items-start flex-col   ">
+        <div className="flex -ml-11 items-start flex-col   ">
           <Image
             src="/images/Waving_hand.svg"
             alt="Waving Hand"

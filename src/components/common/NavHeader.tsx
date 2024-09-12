@@ -12,9 +12,9 @@ const NavHeader = ({ title }: NavHeaderProps) => {
     router.back();
   };
   return (
-    <div className="sticky  mb-5 h-[3.125rem] border-b-1 border-[#D9D9D9] flex items-center justify-center">
+    <div className=" mb-5 h-[3.125rem] border-b-1 border-[#D9D9D9] flex items-center justify-center">
       {/* 이전 단계로 이동 */}
-      <button onClick={handleLeftClick} className="fixed left-0">
+      <button onClick={handleLeftClick} className="sticky left-0">
         <svg
           width="24"
           height="24"
@@ -32,7 +32,9 @@ const NavHeader = ({ title }: NavHeaderProps) => {
         </svg>
       </button>
 
-      <div className="font-bold text-lg mx-auto">{title}</div>
+      <div className="flex-grow font-bold text-lg text-center mx-auto">
+        {title}
+      </div>
     </div>
   );
 };

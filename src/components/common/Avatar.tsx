@@ -12,7 +12,7 @@ const Avartar = ({
 }: AvartarProps) => {
   const avartarStyle = {
     width: typeof size === 'number' ? `${size}px` : size,
-    height: typeof size === 'number' ? `${size}px` : size,
+    // height: typeof size === 'number' ? `${size}px` : size,
     borderRadius:
       typeof borderRadius === 'number' ? `${borderRadius}px` : borderRadius,
   };

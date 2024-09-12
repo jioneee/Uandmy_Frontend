@@ -1,12 +1,12 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 import Avartar from './Avatar';
 import Button from './Button';
-import TagBox from './TagBox';
-import { useState } from 'react';
 import ConfirmModal from './ConfirmModal';
+import TagBox from './TagBox';
 
 interface ProfileCardProps {
   ProfileData: {
@@ -122,7 +122,7 @@ const PendingProfileCard = ({
                 </div>
               </div>
 
-              <p>{profile.text}</p>
+              <p className="text-[0.875rem] px-2">{profile.text}</p>
               <div className="flex flex-row gap-2">
                 {profile.tags.map((tag, index) => (
                   <TagBox key={index}>{tag}</TagBox>

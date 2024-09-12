@@ -120,8 +120,8 @@ const Page = () => {
   return (
     <div>
       <div className="w-full min-h-screen">
-        <div className="w-full  pt-11 pb-20 min-h-screen bg-[#F6F6F6]">
-          <div className="px-[.9375rem]">
+        <div className="w-full  pb-20 min-h-screen bg-[#F6F6F6]">
+          <div className=" pt-11 px-[.9375rem] bg-white">
             <CommonHeader title="스터디룸 관리" />
           </div>
 
@@ -161,7 +161,7 @@ const Page = () => {
               //신청자 관리 화면
               <div className="bg-white">
                 {studyStatus.map((study) => (
-                  <div key={study.id} className="mb-4">
+                  <div key={study.id}>
                     <div
                       onClick={() => handleAccordionClick(study.id)}
                       className=" cursor-pointer p-3 flex justify-between items-center border-b border-[#F6F6F6]">
@@ -175,8 +175,8 @@ const Page = () => {
                       </span>
                     </div>
                     {showAccordion === study.id && (
-                      <div className="bg-[#F5F5FF]">
-                        <div className=" ml-4 p-3 rounded-md ">
+                      <div className="bg-[#F6F6F6]">
+                        <div className="p-3 rounded-md ">
                           <PendingProfileCard
                             ProfileData={profileData}
                             handleReject={handleReject}
