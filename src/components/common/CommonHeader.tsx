@@ -4,7 +4,7 @@ interface HeaderProps {
 
 const CommonHeader = ({ title }: HeaderProps) => {
   return (
-    <header className="h-10 flex items-center pb-[.6875rem] text-lg text-[#212529] font-bold">
+    <header className="h-10 flex items-center pb-[1.25rem] text-[#060606] text-[1.25rem] font-normal">
       {title}
     </header>
   );
