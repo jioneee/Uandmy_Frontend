@@ -10,6 +10,7 @@ export interface StudyroomCardProps {
   position: string;
   title: string;
   tags: string[];
+  registerDate: string;
   startDate: string; // "YYYY-MM-DD" 또는 "YYYY/MM/DD" 형식으로 입력 (ISO 8601 형식)
   endDate: string; // "YYYY-MM-DD" 또는 "YYYY/MM/DD" 형식으로 입력 (ISO 8601 형식)
   views: number;
@@ -19,6 +20,7 @@ const StudyroomCard = ({
   position,
   title,
   tags,
+  registerDate,
   startDate,
   endDate,
   views,
