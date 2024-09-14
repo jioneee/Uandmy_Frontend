@@ -25,10 +25,10 @@ const StudyroomCard = ({
   endDate,
   views,
 }: StudyroomCardProps) => {
-  // startDate, endDate 문자열을 Date 객체로 변환
+  // startDate, endDate, registerDate 문자열을 Date 객체로 변환
   const start = new Date(startDate);
   const end = new Date(endDate);
-
+  const register = new Date(registerDate);
   // 요일
   const dayOfTheWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -46,8 +46,12 @@ const StudyroomCard = ({
 
   return (
     <div className="h-[10.5625rem] px-[1rem] py-[1.125rem] rounded-lg border-[.0625rem] border-[#EAEAEA] bg-white drop-shadow-custom">
+      <span className="text-[#555555] text-xs">
+        {`${register.getFullYear()}.${register.getMonth() + 1}.${register.getDate()} `}
+      </span>
       <div className="flex justify-between items-center mb-[.5rem]">
         <div className="text-[#555555] text-xs">{position}</div>
+
         <Bookmark onClick={handleBookmarkClick} filled={isBookmarked} />
       </div>
 

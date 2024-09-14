@@ -80,6 +80,7 @@ const Page = () => {
   // 슬라이드 메뉴
   const [selectedMenu, setSelectedMenu] = useState('study'); // 초기값은 'study'로 설정
   const [searchStudy, setSearchStudy] = useState('');
+  const [selectedSort, setSelectedSort] = useState('최신 순');
   const menus = [
     { id: 'study', label: '스터디 찾기' },
     { id: 'user', label: '팀원 찾기' },
@@ -130,6 +131,29 @@ const Page = () => {
     return isRecruiting && matchesSearch;
   });
 
+  const sortStudyrooms = (studyrooms: StudyroomCardProps[]) => {
+    return studyrooms.sort((a, b) => {
+      if (selectedSort === '최신 순') {
+        return (
+          new Date(b.registerDate).getTime() -
+          new Date(a.registerDate).getTime()
+        ); // Descending by registerDate
+      } else if (selectedSort === '오래된 순') {
+        return (
+          new Date(a.registerDate).getTime() -
+          new Date(b.registerDate).getTime()
+        );
+      } else if (selectedSort === '조회수 순') {
+        return b.views - a.views;
+      }
+      return 0;
+    });
+  };
+
+  const handleSortChange = (menuId: string, selectedOption: string) => {
+    if (menuId === 'sortPost') setSelectedSort(selectedOption);
+  };
+  const sortedFilteredItems = sortStudyrooms(filteredStudyroomCardItems);
   return (
     <div>
       <div className="w-full min-h-screen bg-[#F6F6F6]">
@@ -198,8 +222,9 @@ const Page = () => {
 
             {/* 총 개수, 최신 순, 등록일 전체 */}
             <div className="flex justify-between items-center text-xs text-[#555555]">
-              <p>총 2,001건</p>
-              <Dropdown items={dropdownItems} />
+              <p>총 {sortedFilteredItems.length}건</p>
+
+              <Dropdown items={dropdownItems} onSelect={handleSortChange} />
             </div>
           </div>
 
