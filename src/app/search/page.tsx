@@ -81,6 +81,7 @@ const Page = () => {
   const [selectedMenu, setSelectedMenu] = useState('study'); // 초기값은 'study'로 설정
   const [searchStudy, setSearchStudy] = useState('');
   const [selectedSort, setSelectedSort] = useState('최신 순');
+  const [selectedPeriod, setSelectedPeriod] = useState('등록일 전체');
   const menus = [
     { id: 'study', label: '스터디 찾기' },
     { id: 'user', label: '팀원 찾기' },
@@ -115,20 +116,37 @@ const Page = () => {
   const handleCheckboxChange = () => {
     setShowRecruitingOnly(!showRecruitingOnly);
   };
+  const registerPeriod = (period: string): Date | null => {
+    const today = new Date();
+    if (period === '1주일 이내') {
+      return new Date(today.setDate(today.getDate() - 7));
+    } else if (period === '1개월 이내') {
+      return new Date(today.setMonth(today.getMonth() - 1));
+    } else if (period === '3개월 이내') {
+      return new Date(today.setMonth(today.getMonth() - 3));
+    }
+    return null;
+  };
 
   // 모집 중인 카드 항목 필터링
   // 모집 중인 카드 항목 + 검색 필터 적용
-  const today = new Date();
+
   const filteredStudyroomCardItems = searchResults.filter((cardItem) => {
-    // 모집 중 필터 적용 후, 검색어 필터 추가
+    const today = new Date();
+    // 모집 중 필터 적용 후
     const isRecruiting = showRecruitingOnly
       ? new Date(cardItem.startDate).getTime() >= today.getTime()
       : true;
+    //검색어 필터
     const matchesSearch = cardItem.title
       .toLowerCase()
       .includes(searchStudy.toLowerCase());
-
-    return isRecruiting && matchesSearch;
+    //등록일 필터
+    const filterStartDate = registerPeriod(selectedPeriod);
+    const inPeriod =
+      filterStartDate === null ||
+      new Date(cardItem.registerDate).getTime() >= filterStartDate.getTime();
+    return isRecruiting && matchesSearch && inPeriod;
   });
 
   const sortStudyrooms = (studyrooms: StudyroomCardProps[]) => {
@@ -137,7 +155,7 @@ const Page = () => {
         return (
           new Date(b.registerDate).getTime() -
           new Date(a.registerDate).getTime()
-        ); // Descending by registerDate
+        );
       } else if (selectedSort === '오래된 순') {
         return (
           new Date(a.registerDate).getTime() -
@@ -151,9 +169,14 @@ const Page = () => {
   };
 
   const handleSortChange = (menuId: string, selectedOption: string) => {
-    if (menuId === 'sortPost') setSelectedSort(selectedOption);
+    if (menuId === 'sortPost') {
+      setSelectedSort(selectedOption);
+    } else if (menuId === 'postDates') {
+      setSelectedPeriod(selectedOption);
+    }
   };
   const sortedFilteredItems = sortStudyrooms(filteredStudyroomCardItems);
+
   return (
     <div>
       <div className="w-full min-h-screen bg-[#F6F6F6]">
