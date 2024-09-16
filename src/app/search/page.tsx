@@ -7,6 +7,9 @@ import Gnb from '@/components/common/Gnb';
 import StudyroomCard, {
   StudyroomCardProps,
 } from '@/components/common/StudyroomCard';
+import TeamMemberCard, {
+  TeamMembersCardProps,
+} from '@/components/common/TeamMemberCard';
 import ToggleSwitch from '@/components/common/ToggleSwitch';
 
 import Filter from '../../../public/images/Filter.svg';
@@ -39,6 +42,57 @@ const searchResults: StudyroomCardProps[] = [
     startDate: '2024/09/20',
     endDate: '2024/10/20',
     views: 823,
+  },
+];
+
+const teamMembers: TeamMembersCardProps[] = [
+  {
+    name: '김선우',
+    job: '디자이너',
+    position: 'UX.UI',
+    tags: ['초급', '열정있는', '파워J'],
+  },
+  {
+    name: '이정아',
+    job: '디자이너',
+    position: '웹 디자인',
+    tags: ['고급', '꼼꼼한', '사교적인'],
+  },
+  {
+    name: '박도윤',
+    job: '디자이너',
+    position: 'UX.UI',
+    tags: ['신중한', '논리적인', '유연한'],
+  },
+  {
+    name: '김선우',
+    job: '디자이너',
+    position: 'UX.UI',
+    tags: ['초급', '열정있는', '파워J'],
+  },
+  {
+    name: '조유진',
+    job: '디자이너',
+    position: '시각디자인',
+    tags: ['고급', '꼼꼼한', '사교적인'],
+  },
+  {
+    name: '이태영',
+    job: '디자이너',
+    position: 'UX.UI',
+    tags: ['고급', '손이 빠른', '시간엄수'],
+  },
+  {
+    name: '강예은',
+    job: '디자이너',
+    position: '시각디자인',
+    tags: ['사교적인', '추진력있는', '성실한'],
+  },
+  {
+    name: '박하정',
+    job: '디자이너',
+    position: 'UX.UI',
+    tags: ['고급', '호기심 많은', '능동적'],
   },
 ];
 
@@ -337,7 +391,20 @@ const Page = () => {
               </div>
             </>
           ) : (
-            <>{/* TODO) 팀원 검색 및 추천 결과 */}</>
+            <>
+              {/* TODO) 팀원 검색 및 추천 결과 */}
+              <div className="flex-col gap-y-[1.125rem]">
+                {teamMembers.map((member, idx) => (
+                  <TeamMemberCard
+                    key={idx}
+                    name={member.name}
+                    job={member.job}
+                    position={member.position}
+                    tags={member.tags}
+                  />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>
