@@ -49,7 +49,7 @@ const teamMembers: TeamMembersCardProps[] = [
   {
     name: '김선우',
     job: '디자이너',
-    position: 'UX.UI',
+    position: 'UX·UI',
     tags: ['초급', '열정있는', '파워J'],
   },
   {
@@ -61,13 +61,13 @@ const teamMembers: TeamMembersCardProps[] = [
   {
     name: '박도윤',
     job: '디자이너',
-    position: 'UX.UI',
-    tags: ['신중한', '논리적인', '유연한'],
+    position: '시각디자인',
+    tags: ['일러스트', '능숙', '신중한'],
   },
   {
-    name: '김선우',
+    name: '서현지',
     job: '디자이너',
-    position: 'UX.UI',
+    position: 'UX·UI',
     tags: ['초급', '열정있는', '파워J'],
   },
   {
@@ -79,7 +79,7 @@ const teamMembers: TeamMembersCardProps[] = [
   {
     name: '이태영',
     job: '디자이너',
-    position: 'UX.UI',
+    position: 'UX·UI',
     tags: ['고급', '손이 빠른', '시간엄수'],
   },
   {
@@ -91,7 +91,7 @@ const teamMembers: TeamMembersCardProps[] = [
   {
     name: '박하정',
     job: '디자이너',
-    position: 'UX.UI',
+    position: 'UX·UI',
     tags: ['고급', '호기심 많은', '능동적'],
   },
 ];
@@ -393,16 +393,18 @@ const Page = () => {
           ) : (
             <>
               {/* TODO) 팀원 검색 및 추천 결과 */}
-              <div className="flex-col gap-y-[1.125rem]">
-                {teamMembers.map((member, idx) => (
-                  <TeamMemberCard
-                    key={idx}
-                    name={member.name}
-                    job={member.job}
-                    position={member.position}
-                    tags={member.tags}
-                  />
-                ))}
+              <div className="pb-[3.375rem] px-[.9375rem] mt-3 ">
+                <div className="flex flex-wrap justify-center items-center gap-4">
+                  {teamMembers.map((member, idx) => (
+                    <TeamMemberCard
+                      key={idx}
+                      name={member.name}
+                      job={member.job}
+                      position={member.position}
+                      tags={member.tags}
+                    />
+                  ))}
+                </div>
               </div>
             </>
           )}

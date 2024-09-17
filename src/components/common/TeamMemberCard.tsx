@@ -16,8 +16,8 @@ const TeamMemberCard = ({
 }: TeamMembersCardProps) => {
   return (
     <>
-      <div className="w-[10.313rem] h-auto p-3 bg-white border border-[#F6F6F6] rounded-lg drop-shadow-custom ">
-        <div className="flex flex-col justify-center items-center mt-3 gap-2 font-medium ">
+      <div className="w-[10.313rem] p-3 bg-white border border-[#F6F6F6] rounded-lg drop-shadow-custom  ">
+        <div className="flex flex-col items-center mt-3 gap-2 font-medium ">
           <div className="absolute top-2 right-2">
             <ArrowCircleUpRight />
           </div>
@@ -31,12 +31,17 @@ const TeamMemberCard = ({
             <p> | </p>
             <p>{position}</p>
           </span>
+
           <span className="w-full flex flex-wrap justify-center gap-1">
             {tags.map((tag, idx) => (
-              <p key={idx}>{tag}</p>
+              <p
+                key={idx}
+                className="after:content-['·'] last:after:content-none text-xs">
+                {tag}
+              </p>
             ))}
           </span>
-          <button className="w-[8.563rem] border border-primary text-primary rounded-lg">
+          <button className="w-[8.563rem] border border-primary text-primary hover:border-greyBorder rounded-lg">
             친구 추가하기 +
           </button>
         </div>
