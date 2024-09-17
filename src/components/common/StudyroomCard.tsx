@@ -45,7 +45,7 @@ const StudyroomCard = ({
   };
 
   return (
-    <div className="h-[10.5625rem] px-[1rem] py-[1.125rem] rounded-lg border-[.0625rem] border-[#EAEAEA] bg-white drop-shadow-custom">
+    <div className="h-[10.5625rem] px-[1rem] py-[0.125rem] rounded-lg border-[.0625rem] border-[#EAEAEA] bg-white drop-shadow-custom">
       <span className="text-[#555555] text-xs">
         {`${register.getFullYear()}.${register.getMonth() + 1}.${register.getDate()} `}
       </span>
