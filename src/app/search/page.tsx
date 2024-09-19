@@ -7,6 +7,9 @@ import Gnb from '@/components/common/Gnb';
 import StudyroomCard, {
   StudyroomCardProps,
 } from '@/components/common/StudyroomCard';
+import TeamMemberCard, {
+  TeamMembersCardProps,
+} from '@/components/common/TeamMemberCard';
 import ToggleSwitch from '@/components/common/ToggleSwitch';
 
 import Filter from '../../../public/images/Filter.svg';
@@ -17,6 +20,7 @@ const searchResults: StudyroomCardProps[] = [
     position: '개발',
     title: '자바 중급 스터디 모집',
     tags: ['북 스터디', 'Java', '백엔드 개발자'],
+    registerDate: '2024/05/19',
     startDate: '2024/05/29',
     endDate: '2024/06/29',
     views: 8123456,
@@ -25,6 +29,7 @@ const searchResults: StudyroomCardProps[] = [
     position: '디자이너 | UXUI 디자인',
     title: '피그마 고급 스킬 스터디 모집 🥰',
     tags: ['오토레이아웃', '과제인증 필수'],
+    registerDate: '2024/08/19',
     startDate: '2024/09/16',
     endDate: '2024/10/10',
     views: 1203,
@@ -33,9 +38,61 @@ const searchResults: StudyroomCardProps[] = [
     position: '디자이너 | 그래픽 디자인',
     title: '하반기 영상 공모전 대비 스터디',
     tags: ['C4D', '블렌더', '3D 디자인'],
+    registerDate: '2024/09/19',
     startDate: '2024/09/20',
     endDate: '2024/10/20',
     views: 823,
+  },
+];
+
+const teamMembers: TeamMembersCardProps[] = [
+  {
+    name: '김선우',
+    job: '디자이너',
+    position: 'UX·UI',
+    tags: ['초급', '열정있는', '파워J'],
+  },
+  {
+    name: '이정아',
+    job: '디자이너',
+    position: '웹 디자인',
+    tags: ['고급', '꼼꼼한', '사교적인'],
+  },
+  {
+    name: '박도윤',
+    job: '디자이너',
+    position: '시각디자인',
+    tags: ['일러스트', '능숙', '신중한'],
+  },
+  {
+    name: '서현지',
+    job: '디자이너',
+    position: 'UX·UI',
+    tags: ['초급', '열정있는', '파워J'],
+  },
+  {
+    name: '조유진',
+    job: '디자이너',
+    position: '시각디자인',
+    tags: ['고급', '꼼꼼한', '사교적인'],
+  },
+  {
+    name: '이태영',
+    job: '디자이너',
+    position: 'UX·UI',
+    tags: ['고급', '손이 빠른', '시간엄수'],
+  },
+  {
+    name: '강예은',
+    job: '디자이너',
+    position: '시각디자인',
+    tags: ['사교적인', '추진력있는', '성실한'],
+  },
+  {
+    name: '박하정',
+    job: '디자이너',
+    position: 'UX·UI',
+    tags: ['고급', '호기심 많은', '능동적'],
   },
 ];
 
@@ -44,6 +101,7 @@ const recommendedStudyroomCards: StudyroomCardProps[] = [
     position: '디자이너 | UXUI 디자인',
     title: '피그마 고급 스킬 스터디 모집 🥰',
     tags: ['오토레이아웃', '과제인증 필수'],
+    registerDate: '2024/08/12',
     startDate: '2024/09/16',
     endDate: '2024/10/10',
     views: 1203,
@@ -52,6 +110,7 @@ const recommendedStudyroomCards: StudyroomCardProps[] = [
     position: '디자이너 | 그래픽 디자인',
     title: '하반기 영상 공모전 대비 스터디',
     tags: ['C4D', '블렌더', '3D 디자인'],
+    registerDate: '2024/08/10',
     startDate: '2024/09/20',
     endDate: '2024/10/20',
     views: 823,
@@ -64,17 +123,19 @@ const dropdownItems = [
     label: '최신 순',
     options: ['최신 순', '오래된 순', '마감 임박 순', '조회수 순'], // 최신 순, 오래된 순 → 포스팅 등록일 기준으로 설정한 상태.
   },
-  // {
-  //   id: 'postDates',
-  //   label: '등록일 전체',
-  //   options: ['등록일 전체', '1주일 이내', '1개월 이내', '3개월 이내'], // 최신순, 오래된 순과 겹침.
-  // },
+  {
+    id: 'postDates',
+    label: '등록일 전체',
+    options: ['등록일 전체', '1주일 이내', '1개월 이내', '3개월 이내'], // 최신순, 오래된 순과 겹침.
+  },
 ];
 
 const Page = () => {
   // 슬라이드 메뉴
   const [selectedMenu, setSelectedMenu] = useState('study'); // 초기값은 'study'로 설정
-  const [searchStudy, setSearchStudy] = useState('');
+  const [search, setSearch] = useState('');
+  const [selectedSort, setSelectedSort] = useState('최신 순');
+  const [selectedPeriod, setSelectedPeriod] = useState('등록일 전체');
   const menus = [
     { id: 'study', label: '스터디 찾기' },
     { id: 'user', label: '팀원 찾기' },
@@ -82,6 +143,7 @@ const Page = () => {
 
   const handleMenuClick = (menu: string) => {
     setSelectedMenu(menu);
+    setSearch('');
   };
 
   const tags = [
@@ -109,20 +171,75 @@ const Page = () => {
   const handleCheckboxChange = () => {
     setShowRecruitingOnly(!showRecruitingOnly);
   };
+  const registerPeriod = (period: string): Date | null => {
+    const today = new Date();
+    if (period === '1주일 이내') {
+      return new Date(today.setDate(today.getDate() - 7));
+    } else if (period === '1개월 이내') {
+      return new Date(today.setMonth(today.getMonth() - 1));
+    } else if (period === '3개월 이내') {
+      return new Date(today.setMonth(today.getMonth() - 3));
+    }
+    return null;
+  };
 
   // 모집 중인 카드 항목 필터링
   // 모집 중인 카드 항목 + 검색 필터 적용
-  const today = new Date();
+
   const filteredStudyroomCardItems = searchResults.filter((cardItem) => {
-    // 모집 중 필터 적용 후, 검색어 필터 추가
+    const today = new Date();
+    // 모집 중 필터 적용 후
     const isRecruiting = showRecruitingOnly
       ? new Date(cardItem.startDate).getTime() >= today.getTime()
       : true;
+    //검색어 필터
     const matchesSearch = cardItem.title
       .toLowerCase()
-      .includes(searchStudy.toLowerCase());
+      .includes(search.toLowerCase());
+    //등록일 필터
+    const filterStartDate = registerPeriod(selectedPeriod);
+    const inPeriod =
+      filterStartDate === null ||
+      new Date(cardItem.registerDate).getTime() >= filterStartDate.getTime();
+    return isRecruiting && matchesSearch && inPeriod;
+  });
 
-    return isRecruiting && matchesSearch;
+  const sortStudyrooms = (studyrooms: StudyroomCardProps[]) => {
+    return studyrooms.sort((a, b) => {
+      if (selectedSort === '최신 순') {
+        return (
+          new Date(b.registerDate).getTime() -
+          new Date(a.registerDate).getTime()
+        );
+      } else if (selectedSort === '오래된 순') {
+        return (
+          new Date(a.registerDate).getTime() -
+          new Date(b.registerDate).getTime()
+        );
+      } else if (selectedSort === '조회수 순') {
+        return b.views - a.views;
+      }
+      return 0;
+    });
+  };
+
+  const handleSortChange = (menuId: string, selectedOption: string) => {
+    if (menuId === 'sortPost') {
+      setSelectedSort(selectedOption);
+    } else if (menuId === 'postDates') {
+      setSelectedPeriod(selectedOption);
+    }
+  };
+  const sortedFilteredItems = sortStudyrooms(filteredStudyroomCardItems);
+
+  const filteredTeamMembers = teamMembers.filter((member) => {
+    const searchLower = search.toLowerCase();
+    return (
+      member.name.toLowerCase().includes(searchLower) ||
+      member.job.toLowerCase().includes(searchLower) ||
+      member.position.toLowerCase().includes(searchLower) ||
+      member.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+    );
   });
 
   return (
@@ -141,8 +258,8 @@ const Page = () => {
               name="search"
               className="block w-full pl-11 pr-[.875rem] py-[.6875rem] rounded-lg bg-[#F3F3F3] placeholder:text-[#41364A] text-[#41364A] text-sm ring-1 ring-inset ring-[#DDDDDD] focus:ring-2 focus:ring-[#DDDDDD] focus:outline-none"
               placeholder="어떤 스터디를 찾고 싶나요?"
-              value={searchStudy}
-              onChange={(e) => setSearchStudy(e.target.value)}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
 
@@ -169,37 +286,37 @@ const Page = () => {
             ))}
           </div>
 
-          <div className="px-4 py-5 bg-white">
-            {/* 태그, 필터 */}
-            <div className="flex justify-between gap-x-2 mb-5">
-              <div className="w-full flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <div
-                    key={tag}
-                    onClick={() => handleTagClick(tag)}
-                    className={`flex justify-center items-center px-2.5 py-0.5 w-fit rounded-[.3125rem] border-[.0625rem] text-sm cursor-pointer ${
-                      selectedTags.includes(tag)
-                        ? 'text-primary border-primary'
-                        : 'text-[#82829B] border-[#e1e1e1]'
-                    }`}>
-                    {tag}
-                  </div>
-                ))}
-              </div>
-              <div>
-                <Filter />
-              </div>
-            </div>
-
-            {/* 총 개수, 최신 순, 등록일 전체 */}
-            <div className="flex justify-between items-center text-xs text-[#555555]">
-              <p>총 2,001건</p>
-              <Dropdown items={dropdownItems} />
-            </div>
-          </div>
-
           {selectedMenu === 'study' ? (
             <>
+              <div className="px-4 py-5 bg-white">
+                {/* 태그, 필터 */}
+                <div className="flex justify-between gap-x-2 mb-5">
+                  <div className="w-full flex flex-wrap gap-2">
+                    {tags.map((tag) => (
+                      <div
+                        key={tag}
+                        onClick={() => handleTagClick(tag)}
+                        className={`flex justify-center items-center px-2.5 py-0.5 w-fit rounded-[.3125rem] border-[.0625rem] text-sm cursor-pointer ${
+                          selectedTags.includes(tag)
+                            ? 'text-primary border-primary'
+                            : 'text-[#82829B] border-[#e1e1e1]'
+                        }`}>
+                        {tag}
+                      </div>
+                    ))}
+                  </div>
+                  <div>
+                    <Filter />
+                  </div>
+                </div>
+
+                {/* 총 개수, 최신 순, 등록일 전체 */}
+                <div className="flex justify-between items-center text-xs text-[#555555]">
+                  <p>총 {sortedFilteredItems.length}건</p>
+
+                  <Dropdown items={dropdownItems} onSelect={handleSortChange} />
+                </div>
+              </div>
               {/* 검색 결과 */}
               <div className="pb-[3.375rem] px-[.9375rem] border-t-8 border-[#F2F2F2]">
                 <div className="my-[1.125rem] flex justify-between">
@@ -245,6 +362,7 @@ const Page = () => {
                       position={cardItem.position}
                       title={cardItem.title}
                       tags={cardItem.tags}
+                      registerDate={cardItem.registerDate}
                       startDate={cardItem.startDate}
                       endDate={cardItem.endDate}
                       views={cardItem.views}
@@ -273,6 +391,7 @@ const Page = () => {
                       position={cardItem.position}
                       title={cardItem.title}
                       tags={cardItem.tags}
+                      registerDate={cardItem.registerDate}
                       startDate={cardItem.startDate}
                       endDate={cardItem.endDate}
                       views={cardItem.views}
@@ -282,7 +401,22 @@ const Page = () => {
               </div>
             </>
           ) : (
-            <>{/* TODO) 팀원 검색 및 추천 결과 */}</>
+            <>
+              {/* TODO) 팀원 검색 및 추천 결과 */}
+              <div className="pb-[3.375rem] px-[.9375rem] mt-3 ">
+                <div className="flex flex-wrap justify-center items-center gap-4">
+                  {filteredTeamMembers.map((member, idx) => (
+                    <TeamMemberCard
+                      key={idx}
+                      name={member.name}
+                      job={member.job}
+                      position={member.position}
+                      tags={member.tags}
+                    />
+                  ))}
+                </div>
+              </div>
+            </>
           )}
         </div>
       </div>

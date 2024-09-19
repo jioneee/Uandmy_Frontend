@@ -71,6 +71,7 @@ const Page = () => {
       position: '개발',
       title: '자바 중급 스터디 모집',
       tags: ['북 스터디', 'Java', '백엔드 개발자'],
+      registerDate: '2024/05/19',
       startDate: '2024/05/29',
       endDate: '2024/06/29',
       views: 8123456,
@@ -79,6 +80,7 @@ const Page = () => {
       position: '디자이너 | UXUI 디자인',
       title: '피그마 고급 스킬 스터디 모집 🥰',
       tags: ['오토레이아웃', '과제인증 필수'],
+      registerDate: '2024/08/19',
       startDate: '2024/09/16',
       endDate: '2024/10/10',
       views: 1203,
@@ -87,6 +89,7 @@ const Page = () => {
       position: '디자이너 | 그래픽 디자인',
       title: '하반기 영상 공모전 대비 스터디',
       tags: ['C4D', '블렌더', '3D 디자인'],
+      registerDate: '2024/09/19',
       startDate: '2024/09/20',
       endDate: '2024/10/20',
       views: 823,
@@ -151,6 +154,7 @@ const Page = () => {
                     position={cardItem.position}
                     title={cardItem.title}
                     tags={cardItem.tags}
+                    registerDate={cardItem.registerDate}
                     startDate={cardItem.startDate}
                     endDate={cardItem.endDate}
                     views={cardItem.views}

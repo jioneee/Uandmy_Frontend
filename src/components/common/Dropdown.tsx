@@ -1,5 +1,6 @@
 'use client';
 import { useState } from 'react';
+
 import DropdownIcon from '../../../public/images/DropdownIcon.svg';
 
 interface DropdownProps {
@@ -8,9 +9,10 @@ interface DropdownProps {
     label: string;
     options: string[];
   }[];
+  onSelect: (menuId: string, option: string) => void;
 }
 
-const Dropdown = ({ items }: DropdownProps) => {
+const Dropdown = ({ items, onSelect }: DropdownProps) => {
   const [openMenu, setOpenMenu] = useState<string | null>(null);
 
   const toggleDropdown = (menuId: string) => {
@@ -33,6 +35,8 @@ const Dropdown = ({ items }: DropdownProps) => {
       ...prev,
       [menuId]: option,
     }));
+
+    onSelect(menuId, option);
     setOpenMenu(null); // 선택 후 드롭다운 닫기
   };
 
